@@ -18,6 +18,14 @@ func check(err error) {
 	}
 }
 
+func JsonResponse(w http.ResponseWriter, Object any) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	u, err := json.Marshal(Object)
+	check(err)
+	w.Write(u)
+}
+
 func Jsoner(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprint(w, "JSON Returned")
 	carl := person{
@@ -26,11 +34,7 @@ func Jsoner(w http.ResponseWriter, r *http.Request) {
 		LastName:   "LName",
 		Age:        45,
 	}
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
 	// json.NewEncoder(w).Encode(carl)
+	JsonResponse(w, carl)
 
-	u, err := json.Marshal(carl)
-	check(err)
-	w.Write(u)
 }
