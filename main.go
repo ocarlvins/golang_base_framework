@@ -26,5 +26,8 @@ func main() {
 	}
 	port := 8080
 	fmt.Printf("Server is listening on :%d...\n", port)
-	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	if err != nil {
+		return
+	}
 }

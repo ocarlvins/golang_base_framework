@@ -30,12 +30,11 @@ func TypeOf(obj any) reflect.Kind {
 	return reflect.TypeOf(obj).Kind()
 }
 
-func processValue(value any) any {
-
+func QuoteIfString(value any) string {
 	if TypeOf(value) == reflect.String {
 		return Quote(value)
 	} else {
-		return value
+		return fmt.Sprintf("%v", value)
 	}
 }
 
@@ -52,10 +51,10 @@ func (p person) insert() string {
 		value := v.Field(i).Interface()
 
 		// fmt.Printf("Field Name: %s, Field Value: %v\n", field.Name, processValue(value))
-		fmt.Printf("Field Name: %s, Field Value: %v\n", field.Tag.Get("json"), processValue(value))
+		fmt.Printf("Field Name: %s, Field Value: %v\n", field.Tag.Get("json"), QuoteIfString(value))
 
-		labels = append(labels, fmt.Sprintf("%v", field.Tag.Get("json")))
-		values = append(values, fmt.Sprintf("%v", processValue(value)))
+		labels = append(labels, field.Tag.Get("json"))
+		values = append(values, QuoteIfString(value))
 	}
 
 	insert_string := fmt.Sprintf("insert into person (%v) values (%v)", strings.Join(labels, ", "), strings.Join(values, ", "))
