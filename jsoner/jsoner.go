@@ -21,7 +21,7 @@ func (p person) to_json() string {
 	return string(u)
 }
 
-func Quote(s string) string {
+func Quote(s any) string {
 	return fmt.Sprintf("\"%s\"", s)
 }
 
@@ -29,14 +29,35 @@ func TypeOf(obj any) reflect.Kind {
 	return reflect.TypeOf(obj).Kind()
 }
 
-func (p person) insert() string {
-	insert_string := fmt.Sprintf("insert into person (first_name) values (")
+func processValue(value any) any {
 
-	if TypeOf(p.FirstName) == reflect.String {
-		insert_string += Quote(p.FirstName)
+	if TypeOf(value) == reflect.String {
+		return Quote(value)
+	} else {
+		return value
+	}
+}
+
+func (p person) insert() string {
+	labels := ""
+	values := ""
+
+	// Use reflection to iterate over the fields of the struct
+	t := reflect.TypeOf(p)
+	v := reflect.ValueOf(p)
+
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		value := v.Field(i).Interface()
+
+		// fmt.Printf("Field Name: %s, Field Value: %v\n", field.Name, processValue(value))
+		fmt.Printf("Field Name: %s, Field Value: %v\n", field.Tag.Get("json"), processValue(value))
+
+		labels += fmt.Sprintf("%v,", field.Tag.Get("json"))
+		values += fmt.Sprintf("%v,", processValue(value))
 	}
 
-	insert_string += ")"
+	insert_string := fmt.Sprintf("insert into person (%v) values (%v)", labels, values)
 
 	return insert_string
 }
