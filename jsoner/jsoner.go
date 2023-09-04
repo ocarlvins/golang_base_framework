@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
+	"strings"
 	"webserver/utilities"
 )
 
@@ -39,8 +40,8 @@ func processValue(value any) any {
 }
 
 func (p person) insert() string {
-	labels := ""
-	values := ""
+	labels := []string{}
+	values := []string{}
 
 	// Use reflection to iterate over the fields of the struct
 	t := reflect.TypeOf(p)
@@ -53,11 +54,11 @@ func (p person) insert() string {
 		// fmt.Printf("Field Name: %s, Field Value: %v\n", field.Name, processValue(value))
 		fmt.Printf("Field Name: %s, Field Value: %v\n", field.Tag.Get("json"), processValue(value))
 
-		labels += fmt.Sprintf("%v,", field.Tag.Get("json"))
-		values += fmt.Sprintf("%v,", processValue(value))
+		labels = append(labels, fmt.Sprintf("%v", field.Tag.Get("json")))
+		values = append(values, fmt.Sprintf("%v", processValue(value)))
 	}
 
-	insert_string := fmt.Sprintf("insert into person (%v) values (%v)", labels, values)
+	insert_string := fmt.Sprintf("insert into person (%v) values (%v)", strings.Join(labels, ", "), strings.Join(values, ", "))
 
 	return insert_string
 }
