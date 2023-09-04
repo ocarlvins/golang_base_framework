@@ -34,5 +34,8 @@ func JsonResponse(w http.ResponseWriter, Object any) {
 	w.WriteHeader(http.StatusCreated)
 	u, err := json.Marshal(Object)
 	Check(err)
-	w.Write(u)
+	_, err = w.Write(u)
+	if err != nil {
+		panic(err)
+	}
 }

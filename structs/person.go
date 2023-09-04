@@ -8,6 +8,10 @@ import (
 	"webserver/utilities"
 )
 
+type DbModels interface {
+	ToJson() string
+}
+
 type Person struct {
 	FirstName  string `json:"first_name"`
 	MiddleName string `json:"middle_name"`
@@ -22,8 +26,8 @@ func (p Person) ToJson() string {
 }
 
 func (p Person) Insert() string {
-	labels := []string{}
-	values := []string{}
+	var labels []string
+	var values []string
 
 	// Use reflection to iterate over the fields of the struct
 	t := reflect.TypeOf(p)
@@ -34,7 +38,7 @@ func (p Person) Insert() string {
 		value := v.Field(i).Interface()
 
 		// fmt.Printf("Field Name: %s, Field Value: %v\n", field.Name, processValue(value))
-		fmt.Printf("Field Name: %s, Field Value: %v\n", field.Tag.Get("json"), utilities.QuoteIfString(value))
+		// fmt.Printf("Field Name: %s, Field Value: %v\n", field.Tag.Get("json"), utilities.QuoteIfString(value))
 
 		labels = append(labels, field.Tag.Get("json"))
 		values = append(values, utilities.QuoteIfString(value))
