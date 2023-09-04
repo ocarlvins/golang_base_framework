@@ -32,7 +32,7 @@ func TypeOf(obj any) reflect.Kind {
 func (p person) insert() string {
 	insert_string := fmt.Sprintf("insert into person (first_name) values (")
 
-	if reflect.TypeOf(p.FirstName).Kind() == reflect.String {
+	if TypeOf(p.FirstName) == reflect.String {
 		insert_string += Quote(p.FirstName)
 	}
 
