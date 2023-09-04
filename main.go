@@ -16,7 +16,7 @@ type route struct {
 var routes = []route{
 	{endpoint: "/hello", function: models.HelloHandleFunc},
 	{endpoint: "/about", function: models.AboutFunc},
-	{endpoint: "/json", function: jsoner.Jsoner},
+	{endpoint: "/json", function: jsoner.JsonEndpoint},
 	{endpoint: "/print", function: print.PrintToFile},
 }
 

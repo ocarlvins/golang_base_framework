@@ -7,7 +7,7 @@ import (
 	"webserver/utilities"
 )
 
-func Jsoner(w http.ResponseWriter, r *http.Request) {
+func JsonEndpoint(w http.ResponseWriter, r *http.Request) {
 	carl := structs.Person{
 		FirstName:  "FName",
 		MiddleName: "Mname",
