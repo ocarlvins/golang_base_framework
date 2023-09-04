@@ -1,6 +1,8 @@
 package jsoner
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
 	"webserver/utilities"
 )
@@ -8,8 +10,14 @@ import (
 type person struct {
 	FirstName  string `json:"first_name"`
 	MiddleName string `json:"middle_name"`
-	LastName   string `json:"last_anme"`
+	LastName   string `json:"last_name"`
 	Age        int    `json:"age"`
+}
+
+func (p person) to_json() string {
+	u, err := json.Marshal(p)
+	utilities.Check(err)
+	return string(u)
 }
 
 func Jsoner(w http.ResponseWriter, r *http.Request) {
@@ -21,5 +29,6 @@ func Jsoner(w http.ResponseWriter, r *http.Request) {
 		Age:        45,
 	}
 	// json.NewEncoder(w).Encode(carl)
+	fmt.Print(carl.to_json())
 	utilities.JsonResponse(w, carl)
 }
