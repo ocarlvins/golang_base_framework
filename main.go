@@ -22,15 +22,6 @@ var routes = []route{
 }
 
 func main() {
-	// http.HandleFunc("/hello", helloHandleFunc)
-
-	// hey := route{
-	// 	endpoint: "/hello",
-	// 	function: helloHandleFunc,
-	// }
-
-	// http.HandleFunc(hey.endpoint, hey.function)
-
 	for _, v := range routes {
 		http.HandleFunc(v.endpoint, v.function)
 	}
