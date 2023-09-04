@@ -1,13 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
+	"webserver/jsoner"
+	"webserver/models"
 )
-
-func helloHandleFunc(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello, World!")
-}
 
 type route struct {
 	endpoint string
@@ -15,10 +12,9 @@ type route struct {
 }
 
 var routes = []route{
-	{endpoint: "/hello", function: helloHandleFunc},
-	{endpoint: "/about", function: func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "About page")
-	}},
+	{endpoint: "/hello", function: models.HelloHandleFunc},
+	{endpoint: "/about", function: models.AboutFunc},
+	{endpoint: "/json", function: jsoner.Jsoner},
 }
 
 func main() {
