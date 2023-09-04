@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"reflect"
 	"webserver/utilities"
 )
 
@@ -20,6 +21,26 @@ func (p person) to_json() string {
 	return string(u)
 }
 
+func Quote(s string) string {
+	return fmt.Sprintf("\"%s\"", s)
+}
+
+func TypeOf(obj any) reflect.Kind {
+	return reflect.TypeOf(obj).Kind()
+}
+
+func (p person) insert() string {
+	insert_string := fmt.Sprintf("insert into person (first_name) values (")
+
+	if reflect.TypeOf(p.FirstName).Kind() == reflect.String {
+		insert_string += Quote(p.FirstName)
+	}
+
+	insert_string += ")"
+
+	return insert_string
+}
+
 func Jsoner(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprint(w, "JSON Returned")
 	carl := person{
@@ -29,6 +50,7 @@ func Jsoner(w http.ResponseWriter, r *http.Request) {
 		Age:        45,
 	}
 	// json.NewEncoder(w).Encode(carl)
-	fmt.Print(carl.to_json())
+	fmt.Println(carl.to_json())
+	fmt.Println(carl.insert())
 	utilities.JsonResponse(w, carl)
 }
