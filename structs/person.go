@@ -2,7 +2,7 @@ package structs
 
 import (
 	"encoding/json"
-	"webserver/utilities"
+	"webserver/utils"
 )
 
 type DbModels interface {
@@ -18,6 +18,6 @@ type Person struct {
 
 func (p Person) ToJson() string {
 	u, err := json.Marshal(p)
-	utilities.Check(err)
+	utils.Check(err)
 	return string(u)
 }

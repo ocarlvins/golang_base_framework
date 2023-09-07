@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"webserver/utilities"
+	"webserver/utils"
 )
 
 func Insert(p any) string {
@@ -23,7 +23,7 @@ func Insert(p any) string {
 		// fmt.Printf("Field Name: %s, Field Value: %v\n", field.Tag.Get("json"), utilities.QuoteIfString(value))
 
 		labels = append(labels, field.Tag.Get("json"))
-		values = append(values, utilities.QuoteIfString(value))
+		values = append(values, utils.QuoteIfString(value))
 	}
 
 	insert_string := fmt.Sprintf("insert into person (%v) values (%v)", strings.Join(labels, ", "), strings.Join(values, ", "))

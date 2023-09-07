@@ -2,7 +2,7 @@ package views
 
 import (
 	"net/http"
-	"webserver/utilities"
+	"webserver/utils"
 )
 
 func DefaultPage(w http.ResponseWriter, _ *http.Request) {
@@ -17,5 +17,5 @@ func DefaultPage(w http.ResponseWriter, _ *http.Request) {
 		FruitList: []string{"Apple", "Banana", "Cherry", "Date"},
 	}
 
-	utilities.TemplateResponse("templates/index.gohtml", data, w)
+	utils.TemplateResponse("templates/index.gohtml", data, w)
 }

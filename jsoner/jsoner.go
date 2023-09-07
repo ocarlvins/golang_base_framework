@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"webserver/db"
 	"webserver/structs"
-	"webserver/utilities"
+	"webserver/utils"
 )
 
 func JsonEndpoint(w http.ResponseWriter, _ *http.Request) {
@@ -22,5 +22,5 @@ func JsonEndpoint(w http.ResponseWriter, _ *http.Request) {
 		fmt.Println(v.ToJson())
 		fmt.Println(db.Insert(v))
 	}
-	utilities.JsonResponse(w, people)
+	utils.JsonResponse(w, people)
 }
