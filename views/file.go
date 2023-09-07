@@ -1,4 +1,4 @@
-package print
+package views
 
 import (
 	"fmt"
@@ -7,5 +7,4 @@ import (
 
 func PrintToFile(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Printing to file")
-
 }

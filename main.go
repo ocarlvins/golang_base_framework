@@ -3,28 +3,21 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"webserver/jsoner"
-	"webserver/models"
-	"webserver/print"
+	"webserver/utils"
 	"webserver/views"
 )
 
-type route struct {
-	endpoint string
-	function func(w http.ResponseWriter, r *http.Request)
-}
-
-var routes = []route{
+var routes = []utils.Route{
 	{"/", views.DefaultPage},
-	{"/hello", models.HelloHandleFunc},
-	{"/about", models.AboutFunc},
-	{"/json", jsoner.JsonEndpoint},
-	{"/print", print.PrintToFile},
+	{"/hello", views.HelloHandleFunc},
+	{"/about", views.AboutFunc},
+	{"/json", views.JsonEndpoint},
+	{"/print", views.PrintToFile},
 }
 
 func main() {
 	for _, v := range routes {
-		http.HandleFunc(v.endpoint, v.function)
+		http.HandleFunc(v.Endpoint, v.Function)
 	}
 	port := 8080
 	fmt.Printf("Server is listening on :%d...\n", port)

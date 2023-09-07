@@ -1,4 +1,4 @@
-package jsoner
+package views
 
 import (
 	"fmt"
