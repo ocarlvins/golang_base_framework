@@ -7,12 +7,14 @@ import (
 	"webserver/views"
 )
 
+var GET = []string{"GET"}
+
 var routes = []utils.Route{
-	{"/", views.DefaultPage},
-	{"/hello", views.HelloHandleFunc},
-	{"/about", views.AboutFunc},
-	{"/json", views.JsonEndpoint},
-	{"/print", views.PrintToFile},
+	{"/", views.DefaultPage, GET},
+	{"/hello", views.HelloHandleFunc, GET},
+	{"/about", views.AboutFunc, GET},
+	{"/json", views.JsonEndpoint, GET},
+	{"/print", views.PrintToFile, GET},
 }
 
 func main() {
