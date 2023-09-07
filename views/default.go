@@ -12,9 +12,9 @@ func DefaultPage(w http.ResponseWriter, _ *http.Request) {
 		Message   string
 		FruitList []string
 	}{
-		Title:     "Hello, Template!",
-		Message:   "This is a dynamic message from Go!",
-		FruitList: []string{"Apple", "Banana", "Cherry", "Date"},
+		"Hello, Template!",
+		"This is a dynamic message from Go!",
+		[]string{"Apple", "Banana", "Cherry", "Date"},
 	}
 
 	utils.TemplateResponse("templates/index.gohtml", data, w)
