@@ -15,6 +15,7 @@ var routes = []utils.Route{
 	{"/about", views.AboutFunc, GET},
 	{"/json", views.JsonEndpoint, GET},
 	{"/print", views.PrintToFile, GET},
+	{"/404", views.NotFoundHandler, GET},
 }
 
 func main() {
