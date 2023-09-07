@@ -1,7 +1,9 @@
 package jsoner
 
 import (
+	"fmt"
 	"net/http"
+	"webserver/db"
 	"webserver/structs"
 	"webserver/utilities"
 )
@@ -16,5 +18,9 @@ func JsonEndpoint(w http.ResponseWriter, _ *http.Request) {
 	// json.NewEncoder(w).Encode(carl)
 	//fmt.Println(carl.ToJson())
 	//fmt.Println(carl.Insert())
+	for _, v := range people {
+		fmt.Println(v.ToJson())
+		fmt.Println(db.Insert(v))
+	}
 	utilities.JsonResponse(w, people)
 }
