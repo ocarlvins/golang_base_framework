@@ -3,6 +3,7 @@ package utilities
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"net/http"
 	"reflect"
 )
@@ -37,5 +38,20 @@ func JsonResponse(w http.ResponseWriter, Object any) {
 	_, err = w.Write(u)
 	if err != nil {
 		panic(err)
+	}
+}
+
+func TemplateResponse(filename string, data any, w http.ResponseWriter) {
+	// Parse the HTML template
+	tmpl, err := template.ParseFiles(filename)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	// Execute the template with the data
+	err = tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 }

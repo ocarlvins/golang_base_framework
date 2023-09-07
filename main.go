@@ -6,6 +6,7 @@ import (
 	"webserver/jsoner"
 	"webserver/models"
 	"webserver/print"
+	"webserver/views"
 )
 
 type route struct {
@@ -14,10 +15,11 @@ type route struct {
 }
 
 var routes = []route{
-	{endpoint: "/hello", function: models.HelloHandleFunc},
-	{endpoint: "/about", function: models.AboutFunc},
-	{endpoint: "/json", function: jsoner.JsonEndpoint},
-	{endpoint: "/print", function: print.PrintToFile},
+	{"/", views.DefaultPage},
+	{"/hello", models.HelloHandleFunc},
+	{"/about", models.AboutFunc},
+	{"/json", jsoner.JsonEndpoint},
+	{"/print", print.PrintToFile},
 }
 
 func main() {
