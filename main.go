@@ -11,6 +11,7 @@ var GET = []string{"GET"}
 
 var routes = []utils.Route{
 	{"/", views.DefaultPage, GET},
+	{"/list", views.ListPage, GET},
 	{"/hello", views.HelloHandleFunc, GET},
 	{"/about", views.AboutFunc, GET},
 	{"/json", views.JsonEndpoint, GET},
