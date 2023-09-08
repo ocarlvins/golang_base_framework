@@ -26,3 +26,14 @@ func QuoteIfString(value any) string {
 		return fmt.Sprintf("%v", value)
 	}
 }
+
+func IsNull(val any) bool {
+	if TypeOf(val) == reflect.String && val == "" {
+		return true
+	}
+	return val == nil
+}
+
+func NotNull(val any) bool {
+	return !IsNull(val)
+}
