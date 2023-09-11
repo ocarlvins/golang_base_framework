@@ -29,6 +29,6 @@ func Insert(p any) string {
 	}
 
 	insert_string := fmt.Sprintf("insert into person (%v) values (%v)", strings.Join(labels, ", "), strings.Join(values, ", "))
-
+	runQuery(insert_string)
 	return insert_string
 }
