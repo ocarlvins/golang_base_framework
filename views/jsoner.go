@@ -20,7 +20,7 @@ func JsonEndpoint(w http.ResponseWriter, _ *http.Request) {
 	//fmt.Println(carl.Insert())
 	for _, v := range people {
 		fmt.Println(v.ToJson())
-		fmt.Println(db.Create(v))
+		fmt.Println(db.Insert(v))
 	}
 	utils.JsonResponse(w, people)
 }
